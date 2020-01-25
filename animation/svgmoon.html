@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>svg moon animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            height:100%;
+            overflow:hidden;
+        }
+        section {
+            height:100%;
+            background:#eee;
+            display:flex;
+            justify-content:space-around;
+            align-items:center;
+            flex-direction:column;
+        }
+        #sunWrap {
+            /* width:100%;
+            height:100%; */
+        }
+        svg {
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <svg id="sunWrap" width="156" height="156" viewBox="0 0 156 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="sun" d="M156 78C156 121.078 121.078 156 78 156C34.9218 156 0 121.078 0 78C0 34.9218 34.9218 0 78 0C121.078 0 156 34.9218 156 78Z" fill="#F0CC0D"/>
+        </svg>  
+    </section>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>      
+<script>
+    const night = "M45 78C45 121.078 78 156 78 156C34.9218 156 0 121.078 0 78C0 34.9218 34.9218 0 78 0C78 0 45 34.9218 45 78Z";
+
+    const sun = "M156 78C156 121.078 121.078 156 78 156C34.9218 156 0 121.078 0 78C0 34.9218 34.9218 0 78 0C121.078 0 156 34.9218 156 78Z";
+
+    const darkMode = document.querySelector("#sunWrap");
+
+    let toggle = false;
+
+    darkMode.addEventListener('click',() => {
+        const timeline = anime.timeline({
+            duration : 750, //  运动时间
+            easing : "easeOutExpo", // 运动曲线
+        });
+
+        timeline.add({
+            targets: ".sun",
+            d : [{value : toggle ? sun : night}]
+        })
+        .add({
+            targets:"#sunWrap",
+            rotate:320
+        },'-= 350')
+        .add({
+            targets:"section",
+            backgroundColor: toggle ? 'rgb(255,255,255)' : "rgb(22,22,22)"
+        },"-= 350");
+
+        if(!toggle) {
+            toggle = true;
+        } else {
+            toggle = false;
+        }
+
+
+    });
+</script>
+</body>
+</html>

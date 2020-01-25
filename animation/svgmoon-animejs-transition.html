@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>svg page transition</title>
+    <style>
+        html,body 
+        {
+            margin: 0;
+            padding: 0;
+            width:100%;
+            height:100%;
+            overflow:hidden;
+            box-sizing:border-box;
+            background:#eee;
+        }
+
+        section {
+            position:absolute;
+            width:100%;
+            height:100%;
+            text-align:center;
+            top:444px;
+            left:0;
+        }
+
+        #morph {
+            position:absolute;
+            width:100%;
+            height:100%;
+            top:0;
+            left:0;
+            pointer-events:none;
+            z-index:1;
+        }
+        
+        button {
+            background:#00354e;
+            margin-top:20px;
+            border:none;
+            color:white;
+            padding:1em;
+            width:40%;
+            cursor:pointer;
+        }
+
+        #btn2 {
+            background:none;
+        }
+
+        #btn2:hover {
+            background:rgba(255,255,255,0.02);
+        }
+
+        .pointer  {
+            pointer-events:auto !important;
+        }
+
+        #sec2 {
+            display:none;
+            position:absolute;
+            width:50%;
+            z-index:2;
+        }
+
+        .display {
+            display:block !important;
+        }
+
+        
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
+</head>
+<body>
+    <svg id = "morph" height="100%" width="100%" fill="#2965FE" xmlns="http://www.w3.org/2000/svg">
+        <path class="morph" d ="M1 530V0.5H1437V348C1392 322.333 1278.3 290.9 1183.5 370.5C1065 470 791.5 344 660 299C528.5 254 382 496 273.5 308.5C186.7 158.5 55.6667 393.667 1 530Z" />
+    </svg>
+        
+    <section id="sec1">
+    
+        <h1>幻术</h1>
+        <p>所系所欲，任意变换页面</p>
+        <button id="btn">见证奇迹的时刻!!!</button>
+        
+    </section>
+
+    <section id="sec2">
+        <button id="btn2">回去</button>
+    </section>
+
+
+
+            
+        
+        
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>      
+<script>
+
+
+    const btn = document.querySelector("#btn");
+    const btn2 = document.querySelector("#btn2");
+
+    const sec = document.querySelector("#sec1");
+    const sec2 = document.querySelector("#sec2");
+
+    var overlay = document.querySelector("#morph");
+
+
+
+    var morphing = anime({
+        targets:'.morph',
+        d:[
+            {value:'M1 530V0.5H1437V348C1392 322.333 1278.3 290.9 1183.5 370.5C1065 470 791.5 344 660 299C528.5 254 382 496 273.5 308.5C186.7 158.5 55.6667 393.667 1 530Z'},
+            // {value:'M1 1025.5V0.5H1437V1025.5H1272H729.5H286.5H1Z'},
+        ],
+        easing:'easeInOutQuint',
+        duration:1300,
+        loop:false,
+        autoplay:false,
+    });
+
+    btn.addEventListener('click',function(){
+
+        morphing.restart();
+        overlay.classList.add('pointer');
+        sec2.classList.add('animated','display','flipInY','delay-1s');
+
+    })
+
+    btn2.addEventListener('click',function(){
+
+        morphing.reverse();
+        morphing.play();
+
+        overlay.classList.remove('pointer');
+        sec2.classList.remove('animated','display','flipInY','delay-1s');
+
+
+    })
+
+
+</script>
+</body>
+</html>
