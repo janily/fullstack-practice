@@ -23,11 +23,11 @@ tl.add(
 const controller = new ScrollMagic.Controller();
 
 const scene  = new ScrollMagic.Scene({
-    triggerElement: animation,
-    duration: 5000,
-    triggerHook: 0
+    triggerElement: animation,   // 动画元素
+    duration: 5000, //动画时间
+    triggerHook: 0  //页面触发位置,默认为onCenter,即triggerElement滚到页面中间的时候触发, 可选值为"onEnter","onCenter","onLeave"
 })
-  .setTween(tl)
-  .addIndicators()
-  .setPin(animation)
-  .addTo(controller);
+  .setTween(tl)  //执行绑定的动画
+  .addIndicators()  // 用来显示动画开始到结束的位置
+  .setPin(animation) //绑定的元素(即动画生效的元素)
+  .addTo(controller); // 添加到控制器
