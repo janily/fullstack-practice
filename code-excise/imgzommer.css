@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.img-wrap {
+    max-width: 640px;
+    margin: 50px auto;
+}
+
+.img {
+    width: 100%;
+    padding-top: calc(100% / (16/9));
+    background-image: url(https://i.picsum.photos/id/1010/5184/3456.jpg);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.img:hover {
+    background-size: 175%;
+}
+
