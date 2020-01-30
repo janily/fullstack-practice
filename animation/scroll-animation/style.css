@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header,footer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 50px;
+}
+
+.animation {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+}
+
+.plane {
+    position: absolute;
+    height: 100px;
+    top: 50%;
+    left: 0;
+}
