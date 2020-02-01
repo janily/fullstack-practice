@@ -1,0 +1,49 @@
+body {
+    background-color: #dcf5ff;
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    font-family: serif;
+}
+
+.container .inner {
+    background-color: #2fe97c;
+    padding: 1em;
+    border-radius: 10px;
+    width: 250px;
+    clip-path: circle(10% at 90% 20%);
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+}
+
+.container .inner:hover {
+    clip-path: circle(75%);
+    background-color: #00b6ff;
+}
+
+.container .inner:hover span {
+    color: rgba(255, 255, 255, 0);
+}
+
+.container .inner span {
+    float: right;
+    color: #fff;
+    font-weight: bold;
+    transition: color .5s linear;
+    position: relative;
+    margin-right: 4%;
+}
+.container .inner h1 {
+    color: #fff;
+    margin: 0;
+}
+
+.container .inner p {
+    color: #fff;
+    font-size: .8em;
+}
+.inner:hover {
+    clip-path: circle(75%);
+}
