@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>parallax laxjs</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <section class="intro">
+        <p class="lax scroll-text">向下滑动</p>
+    </section>
+    <section class="ani">
+        <h1 data-lax-preset="rightToLeft-.1 fadeInOut">Animationg</h1>
+        <p class="desc lax" data-lax-preset="blurInOut fadeInOut">轻量级的滑动动画库</p>
+        <div class="box1 lax" data-lax-preset="spin-60"></div>
+        <div class="box2 lax" data-lax-scale="700 0, 500 1, 100 1, 0 0" data-lax-anchor="self"></div>
+    </section>
+    <section></section>
+    <script src="https://cdn.jsdelivr.net/npm/lax.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
