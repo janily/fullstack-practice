@@ -7,9 +7,12 @@ export function detec(ball, gameObject) {
     let topOfObject = gameObject.position.y;
     let leftSideOfObject = gameObject.position.x;
     let rightSideOfObject = gameObject.position.x + gameObject.width;
-    let bootomOfObject = gameObject.position.x + gameObject.height;
+    let bootomOfObject = gameObject.position.y + gameObject.height;
 
-    if(bottomOfball >= topOfObject && topOfBall <= bootomOfObject &&  ball.position.x >= leftSideOfObject && ball.position.x + ball.size <= rightSideOfObject) {
+    if(bottomOfball >= topOfObject && 
+        topOfBall <= bootomOfObject &&  
+        ball.position.x >= leftSideOfObject && 
+        ball.position.x + ball.size <= rightSideOfObject) {
         return true;
     } else {
         return false;
