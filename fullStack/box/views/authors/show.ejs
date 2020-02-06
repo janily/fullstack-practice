@@ -1,12 +1,9 @@
 <h2><%= author.name %></h2>
-<a href="/authors/<%= author.id %>/edit">编辑</a>
-<%- include('../partials/deleteForm', { url: `/authors/${author.id}`})%>
-
+<div class="btn-row">
+  <a class="btn btn-primary" href="/authors/<%= author.id %>/edit">编辑</a>
+  <%- include('../partials/deleteForm', { url: `/authors/${author.id}`})%>
+</div>
 <% if(booksByAuthor.length > 0) {%>
-    <h2>作者的书</h2>
-    <% booksByAuthor.forEach(book => { %>
-      <a href="/books/<%= book.id %>">
-        <img height="150" width="100" src="<%= book.coverImagePath %>">
-      </a>
-      <% }) %>
+    <h2 class="page-header">作者的书</h2>
+    <%- include('../partials/bookGrid', {books:booksByAuthor, large: true})%>
 <% }%>

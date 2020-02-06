@@ -4,17 +4,20 @@
     --nav-title-font-weight:bold;
     --color-text-light:#9CECFB;
     --nav-link-font-weight:300;
-    --color-btn-primary-text:;
-    --color-btn-primary-background:;
+    --book-cover-width: 200px;
+    --book-cover-large: 300px;
+    --book-cover-aspect-ration: 0.75;
 }
 
 body {
-    background: #9CECFB;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #41295a;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2F0743, #41295a);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2F0743, #41295a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     color: #9CECFB;
 }
 a {
+    display: inline-block;
     color: #9CECFB;
 }
 .container {
@@ -99,3 +102,133 @@ a {
 .btn-row > *:first-child {
     margin-left: 0;
 }
+
+.form-row {
+    display: flex;
+    margin-bottom: .5rem;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    margin-left:2rem;
+    flex-grow:1;
+    flex-basis: 0;
+}
+
+.form-item-no-grow {
+    flex-grow:0;
+}
+
+.form-item > label {
+    font-size: .3rem;
+    margin-bottom: .25rem;
+    margin-left: .25rem;
+}
+
+.form-item input,.form-item select,.form-item textarea {
+    height: 1rem;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    border:1px solid #65C7F7;
+    background-color: rgb(6, 202, 236);
+    color: rgb(14, 162, 189);
+    outline: none;
+    font-size: .3rem;
+}
+
+.form-item textarea {
+    height: 100%;
+    resize: none;
+}
+
+.form-item select option {
+    background-color: #000;
+}
+
+.filepond--root {
+    font-family: sans-serif;
+    margin-bottom: 0;
+}
+
+.filepond--panel-root {
+    background-color: rgb(6, 202, 236);
+    border:1px solid #65C7F7;
+}
+
+.filepond--drop-label {
+    color: rgb(14, 162, 189);
+    font-size: .2rem;
+}
+.form-row-end {
+    justify-content: flex-end;
+}
+
+.author-row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+
+.author-name {
+    font-size: 1.5rem;
+}
+
+.book-cover {
+    width: var(--book-cover-width);
+    height: calc(var(--book-cover-width) / var(--book-cover-aspect-ration));
+}
+
+.book-cover-large {
+    width:var(--book-cover-width-large);
+}
+
+.book-grid {
+    display: grid;
+    justify-content: center;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fill, var(--book-cover-width));
+}
+
+.book-grid-large {
+    grid-template-columns: repeat(auto-fill, var(--book-cover-large));
+}   
+
+.error-message {
+    color: red;
+}
+
+.book-details {
+    display: flex;
+}
+
+.book-details-label {
+    font-size: .3rem;
+    font-weight: 500;
+    align-self: flex-start;
+}
+
+.book-details-grid {
+    display: grid;
+    align-content: flex-start;
+    align-items: center;
+    grid-gap:1rem;
+    grid-template-columns: auto auto;
+}
+
+.book-btn-grid {
+    display: grid;
+    justify-items: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    grid-template-areas: 'edit delete author author';
+    grid-gap:.5rem;
+    margin-top: .5rem;
+}
+
+.btn-check {
+    grid-area: author;
+    justify-self: stretch;
+}
+
+
