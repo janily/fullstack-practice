@@ -6,4 +6,7 @@
 </form>
 <% authors.forEach(author => { %>
     <div><%= author.name %></div>
+    <a href="/authors/<%= author.id %>">查看作者</a>
+    <a href="/authors/<%= author.id %>/edit">编辑作者信息</a>
+    <%- include('../partials/deleteForm', {url: `/authors/${ author.id }`}) %>
 <% }) %>
