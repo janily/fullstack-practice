@@ -1,4 +1,4 @@
-<h2>搜索作者</h2>
+<h2 class="page-header">搜索作者</h2>
 <form action="/authors" method="GET">
     <label for="">名字</label>
     <input type="text" name="name" value="<%= searchOptions.name %>">
@@ -6,7 +6,9 @@
 </form>
 <% authors.forEach(author => { %>
     <div><%= author.name %></div>
-    <a href="/authors/<%= author.id %>">查看作者</a>
-    <a href="/authors/<%= author.id %>/edit">编辑作者信息</a>
-    <%- include('../partials/deleteForm', {url: `/authors/${ author.id }`}) %>
+    <div class="btn-row">
+        <a class="btn btn-primary" href="/authors/<%= author.id %>">查看作者</a>
+        <a class="btn btn-primary" href="/authors/<%= author.id %>/edit">编辑作者信息</a>
+        <%- include('../partials/deleteForm', {url: `/authors/${ author.id }`}) %>
+    </div>
 <% }) %>
