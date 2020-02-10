@@ -39,6 +39,9 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         console.log(response.data.token)
+        this.$router.push({
+          name: 'songs'
+        })
       } catch (error) {
         this.error = error.response.data.error
         console.log(this.error)

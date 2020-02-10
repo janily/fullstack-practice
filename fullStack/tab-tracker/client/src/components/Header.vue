@@ -1,21 +1,23 @@
 <template>
   <v-toolbar prominent fixed height="50px" class="cyan">
     <v-toolbar-title>
-      <span class="home" @click="navigateTo({name : 'root'})">Tracker</span>
+      <!-- <span class="home" @click="navigateTo({name : 'root'})">Tracker</span> -->
+      <router-link class="home" tag="span" :to="{name: 'songs'}">Tracker</router-link>
     </v-toolbar-title>
+    <!-- 跳转建议使用 to 方法 -->
     <v-toolbar-items>
-      <v-btn @click="navigateTo({name: 'songs'})">
+      <v-btn :to="{ name: 'songs'}">
           浏览
       </v-btn>
     </v-toolbar-items>
     <v-spacer></v-spacer>
     <v-toolbar-items v-if="!$store.state.isUserLoggedIn">
-      <v-btn @click="navigateTo({name: 'login'})">登录</v-btn>
+      <v-btn :to="{name: 'login'}">登录</v-btn>
     </v-toolbar-items>
     <v-toolbar-items v-if="!$store.state.isUserLoggedIn">
-      <v-btn @click="navigateTo({name: 'register'})">注册</v-btn>
+      <v-btn :to="{name: 'register'}">注册</v-btn>
     </v-toolbar-items>
-      <v-btn v-if="$store.state.isUserLoggedIn" @click="navigateTo({name : 'root'})">退出登录</v-btn>
+      <v-btn v-if="$store.state.isUserLoggedIn" @click="logout">退出登录</v-btn>
   </v-toolbar>
 </template>
 
@@ -27,9 +29,9 @@ export default {
     },
     logout () {
       this.$store.dispatch('setToken', null)
-      // this.$router.push({
-      //   name: 'root'
-      // })
+      this.$router.push({
+        name: 'songs'
+      })
     }
   }
 }

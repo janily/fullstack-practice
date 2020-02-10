@@ -1,10 +1,9 @@
 <template>
-    <panel title="搜索歌曲">
-      <v-text-field label="Search" v-model="search"></v-text-field>
-    </panel>
+    <v-text-field label="Search" v-model="search"></v-text-field>
 </template>
 <script>
 import Panel from '@/components/Panel'
+import _ from 'lodash'
 export default {
   components: {
     Panel
@@ -15,7 +14,7 @@ export default {
     }
   },
   watch: {
-    search (value) {
+    search: _.debounce(async function (value) {
       const route = {
         name: 'songs'
       }
@@ -26,6 +25,12 @@ export default {
       }
       this.$router.push(route)
     //   console.log(value)
+    }, 700),
+    '$route.query.search': {
+      immediate: true,
+      handler (value) {
+        this.search = value
+      }
     }
   }
 }
