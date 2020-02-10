@@ -1,7 +1,10 @@
 <template>
   <v-container class="gray lighten-5">
     <div class="white elevation-2">
-      <panel title="Songs Hello">
+      <panel title="歌曲搜索">
+        <songs-search />
+      </panel>
+      <panel title="歌曲列表">
         <router-link slot="action" :to="{name: 'song-create'}">
           <v-btn class="cyan btn-add" absolute right middle @click="navigateTo({name: 'song-create'})">添加歌曲</v-btn>
         </router-link>
@@ -31,9 +34,11 @@
 <script>
 import SongsService from '@/services/SongsService'
 import Panel from '@/components/Panel'
+import SongsSearch from '@/components/ViewSong/SongsSearch'
 export default {
   components: {
-    Panel
+    Panel,
+    SongsSearch
   },
   data () {
     return {
@@ -43,6 +48,14 @@ export default {
   methods: {
     navigateTo (route) {
       this.$router.push(route)
+    }
+  },
+  watch: {
+    '$route.query.search': {
+      immediate: true,
+      async handler (value) {
+        this.songs = (await SongsService.index(value)).data
+      }
     }
   },
   async mounted () {

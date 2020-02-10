@@ -74,14 +74,31 @@ module.exports = (app) => {
     });
 
     app.get('/songs', async (req, res) => {
-        const songs = await Song.find({})
-        try {
-            res.send(songs)
-        } catch (err) {
-            res.status(400).send({
-                err: '失败'
+
+        let search = req.query.search
+        const reg = new RegExp(search, 'i')
+        if( search != null && search != '') {
+            const songs = await Song.find({
+                $or: [
+                    {title: {$regex: reg}},
+                    {artist: {$regex: reg}},
+                    {album: {$regex: reg}},
+                ]
+            },function (err, data) {
+                res.send(data)
             })
+        } 
+        else {
+            const songs = await Song.find({})
+            try {
+                res.send(songs)
+            } catch (err) {
+                res.status(400).send({
+                    err: '失败'
+                })
+            }
         }
+        
     });
 
     app.get('/songs/:id', async (req, res) => {
