@@ -1,7 +1,15 @@
 const express = require('express')
 const multer = require('multer')
+const morgan = require('morgan')
+const sharp = require('sharp')
+const path = require('path')
+const fs = require('fs')
+const cors = require('cors')
 
 const app = express();
+app.use("/static", express.static(path.join(__dirname, "static")));
+app.use(morgan('combined'))
+app.use(cors());
 
 const fileFilter = function(req, file, cb) {
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -15,7 +23,7 @@ const fileFilter = function(req, file, cb) {
     cb(null, true);
 }
 
-const MAX_SIZE = 2000;
+const MAX_SIZE = 20000;
 
 const upload = multer({
     dest: './uploads',
@@ -27,6 +35,26 @@ const upload = multer({
 
 app.post('/upload', upload.single('file'), (req, res) => {
     res.json({file: req.file});
+});
+
+app.post('/multiple', upload.array('files'), (req, res) => {
+    res.json({files: req.files});
+});
+
+app.post('/dropzone', upload.single('file'), async (req, res) => {
+    try {
+        await sharp(req.file.path)
+          .resize(300)
+          .toFile(`./static/${req.file.originalname}`);
+
+        fs.unlink(req.file.path, () => {
+            res.json({ file: `/static/${req.file.originalname}`});
+        });
+    } catch (err) {
+        // res.status(422).json({ err: '未知错误' });
+        res.send(err)
+    }
+    // res.json({file: req.file});
 });
 
 app.use(function(err, req, res, next) {

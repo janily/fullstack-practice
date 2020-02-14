@@ -10,17 +10,21 @@
          </div>
        </div>
        
+      <dropzone />
+
      </div>
   </div>
 </template>
 <script>
 import SimpleUpload from './SimpleUpload'
 import MultipleUpload from './MultipleUpload'
+import Dropzone from './Dropzone'
 export default {
   name: "App",
   components: {
     SimpleUpload,
-    MultipleUpload
+    MultipleUpload,
+    Dropzone
   }
 }
 </script>
