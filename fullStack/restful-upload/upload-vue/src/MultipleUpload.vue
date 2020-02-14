@@ -27,7 +27,7 @@
             </div>
             <div class="level-right">
                 <div class="level-item">
-                    <a @click.prevent="files.splice(index, 1)" class="delete"></a>
+                    <a @click.prevent="files.splice(index, 1);uploadFiles.splice(index, 1)" class="delete"></a>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
   </form>
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import _ from 'lodash';
 export default {
   name: "MultipleUpload",
@@ -47,6 +47,7 @@ export default {
   data() {
       return {
           files: [],
+          uploadFiles: [],
           message: "",
           error: false
       }
@@ -56,7 +57,7 @@ export default {
       selectFile() {
 
           const files = this.$refs.files.files;
-        //   this.files = [...this.files, ...files];
+          this.uploadFiles = [...this.uploadFiles, ...files];
 
           this.files = [
               ...this.files,
@@ -72,10 +73,10 @@ export default {
 
       validate(file) {
           const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-          const MAX_SIZE = 2000;
+          const MAX_SIZE = 20000;
 
           if (file.size > MAX_SIZE) {
-              return `最大尺寸`
+              return `最大尺寸: ${MAX_SIZE}Kb`;
           }
 
           if(!allowedTypes.includes(file.type)) {
@@ -84,7 +85,23 @@ export default {
           return ""
       },
       async sendFile() {
-          
+          const formData = new FormData();
+          _.forEach(this.uploadFiles, file => {
+              if (this.validate(file) === "") {
+                  formData.append('files', file);
+              }
+          });
+
+          try {
+              await axios.post('/multiple', formData);
+              this.message = "文件已上传";
+              this.files = [];
+              this.uploadFiles = [];
+          } catch (error) {
+              console.log(error);
+              this.message = error.response.data.error;
+              this.error = true;
+          }
       }
   },
 }

@@ -42,7 +42,7 @@ export default {
       selectFile() {
           const file = this.$refs.file.files[0];
           const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-          const MAX_SIZE = 2000;
+          const MAX_SIZE = 20000;
           const tooLarge = file.size > MAX_SIZE;
 
           if(allowedTypes.includes(file.type) && !tooLarge){
