@@ -1,6 +1,6 @@
-# useful-things
+# fullstack-practice
 
-日常编码练习，无它，唯手熟尔！
+全栈精进练习，无它，唯手熟尔！
 
 # 经典项目
 

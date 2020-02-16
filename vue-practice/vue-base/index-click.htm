@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue base</title>
+</head>
+<body>
+    <div id="app">{{ message }} {{ message + message }}
+        <div :id="message"></div>
+        <!-- <ul>
+            <todo-item v-for="item in list" :title="item.title" :del="item.del"></todo-item>
+        </ul> -->
+        <todo-list>
+            <todo-item @delete="handleDelete" v-for="item in list" :title="item.title" :del="item.del">
+                <!-- <span slot="pre-icon">前置图标</span>
+                <span slot="suf-icon">后置图标</span> -->
+                <template v-slot:pre-icon="{value}">
+                    <span>前置图标 {{value}}</span>
+                </template>
+                <!-- <template v-slot:suf-icon>
+                    <span>后置图标</span>
+                </template>  返回组件的函数 --> 
+            </todo-item>
+        </todo-list>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('todo-item', {
+            props: {
+                title: String,
+                del: {
+                    type: Boolean,
+                    default: false,
+                },
+            },
+            data: function() {
+                return {
+                    value: parseInt(Math.random() * 10)
+                }
+            },
+            template: ` <li>
+                <slot name="pre-icon" :value="value"></slot>
+                <span v-if="!del">{{ title }}</span>
+                <span v-else style="text-decoration: line-through;">{{ title }}</span>
+                <slot name="suf-icon">😄</slot>
+                <button v-show="!del" @click="handleClick">删除</button>
+            </li>`,
+            methods: {
+                handleClick() {
+                    console.log('click delete')
+                    this.$emit('delete', this.title)
+                }
+            },
+        })
+        Vue.component('todo-list', {
+            template:`<ul>
+               <slot></slot> 
+            </ul>`,
+            data: function() {
+                return {
+                    
+                }
+            },
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello world',
+                list: [
+                        {
+                            title: "课程1",
+                            del:false
+                        },
+                        {
+                            title: "课程2",
+                            del:false
+                        },
+                        {
+                            title: "课程3",
+                            del:false
+                        },
+                        {
+                            title: "课程5",
+                            del:true
+                        }
+                    ],
+            },
+            methods: {
+                handleDelete(val) {
+                    console.log('handleDelete', val)
+                }
+            },
+        })
+    </script>
+</body>
+</html>
