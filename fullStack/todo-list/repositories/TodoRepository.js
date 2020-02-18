@@ -24,7 +24,7 @@ class TodoRepository {
         return this.model.findByIdAndDelete(id);
     }
 
-    updateById(id) {
+    updateById(id,object) {
         const query = {_id: id};
         return this.model.findOneAndUpdate(query, {$set: {name:object.name, done: object.done}});
     }

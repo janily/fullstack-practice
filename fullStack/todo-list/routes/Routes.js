@@ -28,7 +28,7 @@ app.delete('/:id', (req, res) => {
     }).catch((error) => console.log(error));
 });
 
-app.put('/:id', (req, rea) => {
+app.put('/:id', (req, res) => {
     const {id} = req.params;
     const todo = {name:req.body.name, done: req.body.done};
     repository.updateById(id, todo)
