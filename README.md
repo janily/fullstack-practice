@@ -4,8 +4,9 @@
 
 # 经典项目
 
-1. Web application using api
-2. Bronchure site
-3. E-commerce site
-4. Personal Portfolio
-5. Simple game
+* [X] Web application using api
+* [X] Bronchure site
+* [] Todo list
+* [] E-commerce site
+* [] Personal Portfolio
+* [X] Simple game
