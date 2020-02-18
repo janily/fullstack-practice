@@ -7,6 +7,6 @@
 - [X] Web application using api
 - [X] Bronchure site
 - [X] Todo list
-- [] E-commerce site
-- [] Personal Portfolio
+- [ ] E-commerce site
+- [ ] Personal Portfolio
 - [X] Simple game
