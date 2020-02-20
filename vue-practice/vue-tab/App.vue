@@ -1,6 +1,6 @@
 <template lang="html">
   <div class='wrapper'>
-    <button class='change__style' @click='changeStyle()'>Change Style</button>
+    <button class='change__style' @click='changeStyle()'>改变风格</button>
     <tabs :mode="mode">
       <tab title="Tab 1">Hello From Tab 1</tab>
       <tab title="Tab 2">Hello From Tab 2</tab>

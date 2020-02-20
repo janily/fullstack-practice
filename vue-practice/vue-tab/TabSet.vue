@@ -22,8 +22,8 @@ export default {
   },
   data () {
     return {
-      selectedIndex: 0, // the index of the selected tab,
-      tabs: []         // all of the tabs
+      selectedIndex: 0, // 选中 tab 的索引值
+      tabs: []         // 所有的 tab 
     }
   },
   created () {
@@ -36,7 +36,7 @@ export default {
     selectTab (i) {
       this.selectedIndex = i
 
-      // loop over all the tabs
+      // 遍历循环 tab 
       this.tabs.forEach((tab, index) => {
         tab.isActive = (index === i)
       })
