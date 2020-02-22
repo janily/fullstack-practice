@@ -1,60 +1,60 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
+<div>
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+    </v-navigation-drawer>
+    <v-toolbar  color="deep-purple accent-4">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor:pointer">DevMeetup</router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-content>
-      <HelloWorld/>
-    </v-content>
-  </v-app>
+      <v-toolbar-items>
+        <v-btn text :key="index" router :to="item.link" v-for="(item, index) in menuItems">
+          {{ item.title }}
+        </v-btn>
+      </v-toolbar-items>
+      <v-toolbar-items>
+        <v-btn text v-if="userIsAuthenticated" @click="onLogout">
+          退出账户
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <main>
+      <router-view></router-view>
+    </main>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
+    data () {
+      return {
+        drawer: null,
+      }
+    },
+    computed: {
+      menuItems () {
+        let menuItems = [
+          {title: '注册', link: '/signup'},
+          {title: '登录', link: '/signin'}
+        ]
+        if (this.userIsAuthenticated) {
+          menuItems = [
+            {title: '最近活动', link: '/meetups'},
+            {title: '组织活动', link: '/meetup/new'},
+            {title: '个人信息', link: '/profile'}
+          ]
+        }
+        return menuItems
+      },
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+    },
+    methods: {
+      onLogout () {
+        this.$store.dispatch('logout')
+      }
+    },
+  }
 </script>
