@@ -22,7 +22,7 @@
         <v-row style="justify-content: center;">
             <v-col cols="12" md="8">
 
-          <v-progress-circular indeterminate :value="20" v-if="loading"></v-progress-circular>
+              <v-progress-circular indeterminate :value="20" v-if="loading"></v-progress-circular>
         </v-col>
       </v-row>
       <v-row v-if="!loading">
