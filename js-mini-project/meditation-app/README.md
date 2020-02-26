@@ -1,2 +1,2 @@
 # meditation-app
-Meditation app tutorial
+冥想小应用练习
