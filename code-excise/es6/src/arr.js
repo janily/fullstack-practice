@@ -22,3 +22,16 @@ console.log(a+b); // coding janily
 //解构不仅可以用于数组，还可以用于对象。
 let {foo,bar} = {foo:'janily',bar: 'coding'};
 console.log(foo+bar);
+
+// 圆括号
+
+let c;
+({c} ={c:'janilychen'});
+console.log(c);
+
+//字符串结构
+const [e,f,g,h] = 'janilychen';
+console.log(e);
+console.log(f);
+console.log(g);
+console.log(h);
