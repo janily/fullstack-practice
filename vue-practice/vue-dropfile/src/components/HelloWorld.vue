@@ -1,15 +1,21 @@
 <template>
   <div>
-    <vue-dropzone ref="dropzone" id="drop1" :options="dropOptions" @vdropzone-complete="afterComplete"></vue-dropzone>
+    <vue-dropzone
+      ref="dropzone"
+      id="drop1"
+      :options="dropOptions"
+      @vdropzone-complete="afterComplete"
+      v-on:vdropzone-sending="sendingEvent"
+    ></vue-dropzone>
     <button @click="removeAllFiles">取消上传</button>
   </div>
 </template>
 <script>
-import vueDropzone from 'vue2-dropzone'
+import vueDropzone from "vue2-dropzone";
 export default {
   data: () => ({
     dropOptions: {
-      url:"localhost:3000/post",
+      url: "https://httpbin.org/post",
       maxFilesize: 2, // MB
       maxFiles: 4,
       chunking: true,
@@ -23,12 +29,15 @@ export default {
     vueDropzone
   },
   methods: {
+    sendingEvent(file, xhr, formData) {
+      formData.append("paramName", "photo");
+    },
     removeAllFiles() {
       this.$ref.dropzone.removeAllFiles();
     },
     afterComplete(file) {
       console.log(file);
     }
-  },
+  }
 };
 </script>
