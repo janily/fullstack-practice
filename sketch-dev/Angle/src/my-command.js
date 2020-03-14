@@ -1,22 +1,19 @@
-// 扩展 obj-c 数组的方法
-Array.fromNSArray = function(nsArray) {
-  let array = [];
-  for (var i = 0; i < nsArray.count(); i++) {
-    array.push(nsArray[i]);
-  }
-  return array;
-};
+import Angle from "./Angle";
+import * as Shared from "./Shared";
+import { Error } from "./Error";
 
 function loadLocalImage({ scriptPath, filePath }) {
   let basePath = scriptPath
     .stringByDeletingLastPathComponent()
     .stringByDeletingLastPathComponent()
     .stringByDeletingLastPathComponent();
+
   return NSImage.alloc().initWithContentsOfFile(basePath + "/" + filePath);
 }
 
 function getSelectionAndOptions_forAngleInstances({ scriptPath }) {
   let alert = NSAlert.alloc().init();
+
   alert.setMessageText("Apply Mockup");
   alert.setInformativeText(
     "Choose an Artboard to apply into the selected shape."
@@ -24,14 +21,12 @@ function getSelectionAndOptions_forAngleInstances({ scriptPath }) {
   alert.addButtonWithTitle("Apply");
   alert.addButtonWithTitle("Cancel");
   alert.icon = loadLocalImage({
-    scriptPath,
+    scriptPath: scriptPath,
     filePath: "Contents/Resources/logo.png"
   });
 
   return alert.runModal();
 }
-import sketch from "sketch";
-// documentation: https://developer.sketchapp.com/reference/api/
 
 export default function({
   api,
@@ -40,24 +35,58 @@ export default function({
   plugin,
   scriptPath,
   scriptURL,
-  selection,
-  context
+  selection
 }) {
-  sketch.UI.message("It's alive 🙌");
-  // 当前所选中的对象
+  if (selection == null || selection.count() == 0) {
+    Shared.show({
+      message: Error.emptySelection.message,
+      in: document
+    });
+    return;
+  }
+
   let selectedLayers = Array.fromNSArray(selection);
-  // 当前画布的数量
+
   let artboardsOnSelectPage = Array.fromNSArray(document.artboards());
-  // 不同页面之间的画布的统计
+
   let artboardsOnOtherPages = [];
   let pages = Array.fromNSArray(document.pages());
   pages = pages.filter(page => page != document.currentPage());
-  for (var i = 0; i < pages.length; i++) {
-    var artboards = Array.fromNSArray(pages[i].artboards());
+
+  for (var page in pages) {
+    var artboards = Array.fromNSArray(page.artboards());
     artboardsOnOtherPages = artboardsOnOtherPages.concat(artboards);
   }
-  // print(artboardsOnOtherPages);
-  // print(artboardsOnOtherPages);
 
-  getSelectionAndOptions_forAngleInstances({ scriptPath });
+  const angleLogo = loadLocalImage({
+    scriptPath: context.scriptPath,
+    filePath: "Contents/Resources/logo.png"
+  });
+
+  if (artboardsOnSelectPage.length + artboardsOnOtherPages.length == 0) {
+    var alert = NSAlert.alloc().init();
+
+    alert.setMessageText("Angle needs an Artboard");
+    alert.setInformativeText(
+      "To start using Angle, create a new Artboard that contains your screen."
+    );
+    alert.addButtonWithTitle("OK");
+    alert.icon = angleLogo;
+
+    alert.runModal();
+    return;
+  }
+
+  let angle = Angle.tryCreating({
+    for: selectedLayers[0]
+  });
+
+  if (angle instanceof Angle) {
+    getSelectionAndOptions_forAngleInstances({ scriptPath: scriptPath });
+
+    Shared.show({
+      message: "Angle can be applied to this shape",
+      in: document
+    });
+  }
 }

@@ -1,17 +1,19 @@
 {
-  "$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
   "icon": "icon.png",
   "commands": [
     {
-      "name": "my-command",
-      "identifier": "angle.my-command-identifier",
+      "name": "Apply Mockup",
+      "identifier": "Apply-Mockup",
+      "shortcut": "cmd shift option \/",
       "script": "./my-command.js"
     }
   ],
   "menu": {
-    "title": "Angle",
+    "title": "My Plugin",
     "items": [
-      "angle.my-command-identifier"
+      "Apply-Mockup"
     ]
   }
 }
