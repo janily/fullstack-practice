@@ -1,18 +1,16 @@
 {
   "name": "angle",
-  "description": "",
   "version": "0.1.0",
   "engines": {
-    "sketch": ">=49.0"
+    "sketch": ">=3.0"
   },
   "skpm": {
     "name": "Angle",
     "manifest": "src/manifest.json",
-    "main": "angle.sketchplugin",
+    "main": "plugin.sketchplugin",
     "assets": [
       "assets/**/*"
-    ],
-    "sketch-assets-file": "sketch-assets/icons.sketch"
+    ]
   },
   "scripts": {
     "build": "skpm-build",
@@ -21,7 +19,6 @@
     "postinstall": "npm run build && skpm-link"
   },
   "devDependencies": {
-    "@skpm/builder": "^0.7.0"
-  },
-  "author": "janily <nanhuchenjie@163.com>"
+    "@skpm/builder": "^0.5.2"
+  }
 }

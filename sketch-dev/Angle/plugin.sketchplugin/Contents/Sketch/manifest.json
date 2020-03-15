@@ -6,8 +6,8 @@
     {
       "name": "Apply Mockup",
       "identifier": "Apply-Mockup",
-      "shortcut": "cmd shift option \/",
-      "script": "./apply.js"
+      "shortcut": "cmd shift option /",
+      "script": "my-command.js"
     }
   ],
   "menu": {
@@ -15,5 +15,9 @@
     "items": [
       "Apply-Mockup"
     ]
-  }
+  },
+  "version": "0.1.0",
+  "name": "Angle",
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
 }

@@ -1,8 +1,9 @@
-import Angle from "./Angle";
-import * as Shared from "./Shared";
-import { Error } from "./Error";
+import Angle from './Angle'
+import * as Shared from './Shared'
+import { Error } from './Error'
 
-function loadLocalImage({ scriptPath, filePath }) {
+function loadLocalImage ({ scriptPath, filePath }) {
+  
   let basePath = scriptPath
     .stringByDeletingLastPathComponent()
     .stringByDeletingLastPathComponent()
@@ -12,12 +13,11 @@ function loadLocalImage({ scriptPath, filePath }) {
 }
 
 function getSelectionAndOptions_forAngleInstances({ scriptPath }) {
+
   let alert = NSAlert.alloc().init();
 
   alert.setMessageText("Apply Mockup");
-  alert.setInformativeText(
-    "Choose an Artboard to apply into the selected shape."
-  );
+  alert.setInformativeText("Choose an Artboard to apply into the selected shape.");
   alert.addButtonWithTitle("Apply");
   alert.addButtonWithTitle("Cancel");
   alert.icon = loadLocalImage({
@@ -25,29 +25,24 @@ function getSelectionAndOptions_forAngleInstances({ scriptPath }) {
     filePath: "Contents/Resources/logo.png"
   });
 
-  return alert.runModal();
+  return alert.runModal()
 }
 
-export default function({
-  api,
-  command,
-  document,
-  plugin,
-  scriptPath,
-  scriptURL,
-  selection
-}) {
+export default function({api, command, document, plugin, scriptPath, scriptURL, selection}) {
+
   if (selection == null || selection.count() == 0) {
     Shared.show({
       message: Error.emptySelection.message,
       in: document
     });
-    return;
+    return
   }
 
-  let selectedLayers = Array.fromNSArray(selection);
+  let selectedLayers = Array
+    .fromNSArray(selection)
 
-  let artboardsOnSelectPage = Array.fromNSArray(document.artboards());
+  let artboardsOnSelectPage = Array
+    .fromNSArray(document.artboards());
 
   let artboardsOnOtherPages = [];
   let pages = Array.fromNSArray(document.pages());
@@ -62,19 +57,18 @@ export default function({
     scriptPath: context.scriptPath,
     filePath: "Contents/Resources/logo.png"
   });
+  
+  if ((artboardsOnSelectPage.length + artboardsOnOtherPages.length) == 0) {
 
-  if (artboardsOnSelectPage.length + artboardsOnOtherPages.length == 0) {
     var alert = NSAlert.alloc().init();
 
     alert.setMessageText("Angle needs an Artboard");
-    alert.setInformativeText(
-      "To start using Angle, create a new Artboard that contains your screen."
-    );
+    alert.setInformativeText("To start using Angle, create a new Artboard that contains your screen.");
     alert.addButtonWithTitle("OK");
     alert.icon = angleLogo;
 
     alert.runModal();
-    return;
+    return
   }
 
   let angle = Angle.tryCreating({
@@ -82,11 +76,10 @@ export default function({
   });
 
   if (angle instanceof Angle) {
+
     getSelectionAndOptions_forAngleInstances({ scriptPath: scriptPath });
 
-    Shared.show({
-      message: "Angle can be applied to this shape",
-      in: document
-    });
+    angle.artboard = artboardsOnSelectPage[0];
+    angle.applyImage();
   }
 }
