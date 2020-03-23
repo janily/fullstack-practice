@@ -2,9 +2,11 @@
 
 > vue upload file with dropzone
 
+前端基于 vue2-dropzone 组件，后端基于 express 来实现文件上传的 API 保存上传文件
+
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
