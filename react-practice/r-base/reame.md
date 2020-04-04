@@ -1,4 +1,4 @@
-## React 组件
+# React 组件
 
 属性（props） + 状态（state）实现一个视图（view）从而实现一个组件
 
@@ -8,17 +8,17 @@
 2、考虑组件的状态组成
 3、考虑组件的交互方式
 
-### 单一职责原则
+## 单一职责原则
 
 每个组件只做一件事
 组件复杂，拆分小组件
 
-### 数据状态管理：DRY 原则
+## 数据状态管理：DRY 原则
 
 能计算到的状态不需要单独存储
 组件尽量无状态，使用 prop 来管理属性
 
-### 自定义组件以大写字母开头
+## 自定义组件以大写字母开头
 
 JSX 可以直接使用属性语法，JSX 是 JavaScript 的一种语法糖
 
@@ -68,7 +68,7 @@ JSX 可以直接使用属性语法，JSX 是 JavaScript 的一种语法糖
 2、Rekit
 3、codesandbox.io
 
-## Redux
+## Redux(单向数据流)
 
 状态管理，统一由一个 Store 管理
 
@@ -85,3 +85,11 @@ action (描述行为的数据结构)
 reducer (更新数据)
 
 Store - Actions - Reducer - View
+
+### combineReducers
+
+接受多个 reducers,组合在一起
+
+### bindActionCreators
+
+把 action 绑定到组件上，组件就可以访问 store 里到所有 action
