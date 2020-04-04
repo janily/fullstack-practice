@@ -15,19 +15,20 @@
 
 ## 数据状态管理：DRY 原则
 
-能计算到的状态不需要单独存储
-组件尽量无状态，使用 prop 来管理属性
+能计算到的状态不需要单独存储。
+组件尽量无状态，使用 prop 来管理属性。
 
 ## 自定义组件以大写字母开头
 
-JSX 可以直接使用属性语法，JSX 是 JavaScript 的一种语法糖
+JSX 可以直接使用属性语法，JSX 是 JavaScript 的一种语法糖.
+写一个组件的时候，组件的最外层都需要有一个包裹。
 
 ## 生命周期
 
 ### constructor
 
-用于初始化内部状态，很少使用
-唯一可以直接修改 state 的地方
+用于初始化内部状态，很少使用。
+唯一可以直接修改 state 的地方。
 
 ### getDerivedStateFormProps
 
@@ -93,3 +94,7 @@ Store - Actions - Reducer - View
 ### bindActionCreators
 
 把 action 绑定到组件上，组件就可以访问 store 里到所有 action
+
+## JSX 语法
+
+就是你自定义的组件必须首写字母要进行大写，而 JSX 是小写字母开头的。
