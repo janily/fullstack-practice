@@ -61,3 +61,27 @@ JSX 可以直接使用属性语法，JSX 是 JavaScript 的一种语法糖
 
 1、决定 virtual DOM 是否需要重绘
 2、典型场景：性能优化
+
+## 脚手架
+
+1、create-react-app
+2、Rekit
+3、codesandbox.io
+
+## Redux
+
+状态管理，统一由一个 Store 管理
+
+state + action = new state
+
+纯函数更新 Store
+
+1 getState()
+2 dispatch(action)
+3 subscribe(listener)
+
+action (描述行为的数据结构)
+
+reducer (更新数据)
+
+Store - Actions - Reducer - View
