@@ -214,3 +214,7 @@ Reducer 必须是纯函数
 
 完全没有业务逻辑只有 UI 的组件叫无状态组件，一个标准函数或者是箭头函数，具体查看 r-base02 这个实例中的 TodoListUi.js 文件。
 性能比普通组件要好
+
+## Redux-thunk
+
+在 Dispatch 一个 Action 之后，到达 reducer 之前，进行一些额外的操作，就需要用到 middleware（中间件）。在实际工作中你可以使用中间件来进行日志记录、创建崩溃报告，调用异步接口或者路由。 这个中间件可以使用是 Redux-thunk 来进行增强。
