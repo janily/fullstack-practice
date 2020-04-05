@@ -187,3 +187,15 @@ EasyMock 来模拟数据。
 ## 动画
 
 使用 react-transition-group 来做 UI 动画效果
+
+## 状态管理
+
+Redux 来进行状态管理
+
+React Component(组件，借书者) - Action Creators(图书管理员) - Store(图书馆) - Reducers(图书管理软件)
+Store(图书馆) - React Component(组件，借书者)
+
+![](https://tva1.sinaimg.cn/large/00831rSTgy1gdiv0gbhlaj30dc0a0t9a.jpg)
+
+state: 指的是原始仓库里的状态。
+action: 指的是 action 新传递的状态。
