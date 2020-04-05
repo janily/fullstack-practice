@@ -199,3 +199,18 @@ Store(图书馆) - React Component(组件，借书者)
 
 state: 指的是原始仓库里的状态。
 action: 指的是 action 新传递的状态。
+
+store 必须是唯一的，多个 store 是坚决不允许，只能有一个 store 空间
+
+只有 store 能改变自己的内容，Reducer 不能改变
+
+Reducer 必须是纯函数
+
+## 拆分 UI 组件
+
+可以看到 r-base02 这个实例中的 TodoList.js 组件是 UI 和业务逻辑完全耦合在一起的，这时候在 src 目录下新建一个文件叫 TodoListUI.js,快速生成页面的基本结构。
+
+### 无状态组件
+
+完全没有业务逻辑只有 UI 的组件叫无状态组件，一个标准函数或者是箭头函数，具体查看 r-base02 这个实例中的 TodoListUi.js 文件。
+性能比普通组件要好
