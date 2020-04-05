@@ -218,3 +218,31 @@ Reducer 必须是纯函数
 ## Redux-thunk
 
 在 Dispatch 一个 Action 之后，到达 reducer 之前，进行一些额外的操作，就需要用到 middleware（中间件）。在实际工作中你可以使用中间件来进行日志记录、创建崩溃报告，调用异步接口或者路由。 这个中间件可以使用是 Redux-thunk 来进行增强。
+
+## React Hooks
+
+React Hooks 就是用函数的形式代替原来的继承类的形式，并且使用预函数的形式管理 state，有 Hooks 可以不再使用类的形式定义组件了。
+
+Hooks 本质上就是一类特殊的函数，他们可以为你的函数型组件（function component）注入一些特殊的功能。
+
+```javascript
+const [count, setCount] = useState(0); // es6 数组结构语法
+```
+
+相当于：
+
+```javascript
+let _useState = userState(0);
+let count = _useState[0];
+let setCount = _useState[1];
+```
+
+useState 这个函数接收的参数是状态的初始值(Initial state)，它返回一个数组，这个数组的第 0 位是当前的状态值，第 1 位是可以改变状态值的方法函数。 所以上面的代码的意思就是声明了一个状态变量为 count，并把它的初始值设为 0，同时提供了一个可以改变 count 的状态值的方法函数。
+
+就是 React Hooks 不能出现在条件判断语句中，因为它必须有完全一样的渲染顺序。
+
+useEffect 来代替生命周期方法。
+
+React 首次渲染和之后的每次渲染都会调用一遍 useEffect 函数，而之前我们要用两个生命周期函数分别表示首次渲染(componentDidMonut)和更新导致的重新渲染(componentDidUpdate)。
+
+useEffect 中定义的函数的执行不会阻碍浏览器更新视图，也就是说这些函数时异步执行的，而 componentDidMonut 和 componentDidUpdate 中的代码都是同步执行的。这个有好处也有坏处吧，比如要根据页面的大小，然后绘制当前弹出窗口的大小，如果时异步的就不好操作了。
