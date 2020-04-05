@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import "antd/dist/antd.css";
 import store from "./store/index";
 import TodoListUi from "./TodoListUi";
-import axios from "axios";
 
 // import { CHANGE_INPUT, ADD_ITEM, DELETE_ITEM } from "./store/actionTypes";
 import {
+  getTodoList,
   changeInputAction,
   addItemAction,
-  deleteItemAction,
-  getListAction
+  deleteItemAction
 } from "./store/actionCreatores";
 
 class TodoList extends Component {
@@ -25,16 +24,8 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(
-        "https://www.easy-mock.com/mock/5e894e0e2dfdc814967a527a/rbase01/fuwuproject"
-      )
-      .then(res => {
-        console.log(res);
-        const data = res.data;
-        const action = getListAction(data);
-        store.dispatch(action); // 传递给 store
-      });
+    const action = getTodoList();
+    store.dispatch(action);
   }
 
   render() {
