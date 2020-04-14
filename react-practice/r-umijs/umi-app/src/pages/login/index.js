@@ -23,10 +23,7 @@ const index = ({ form }) => {
     <Layout>
       <Content className={styles.content}>
         <div className={styles.form}>
-          <h1>
-            <img src={require('@/assets/logo2.png')} alt="logo2" />
-            管理系统
-          </h1>
+          <h1>管理系统</h1>
           {/* Form表单 */}
           <Form>
             <Form.Item>
