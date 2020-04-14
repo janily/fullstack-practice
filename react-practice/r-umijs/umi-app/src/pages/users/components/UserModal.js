@@ -31,11 +31,10 @@ class UserModal extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // 请求
-        this.props.onAdd(values).then(res => {
+        this.props.onOk(values).then(res => {
           if (res.state == 'success') {
             // 关闭弹窗
             this.handleCancel();
-            console.log(values);
           }
         });
       }
@@ -43,15 +42,14 @@ class UserModal extends Component {
   };
   render() {
     const { visible } = this.state;
-    const { children, addLoading } = this.props;
-    const { getFieldDecorator } = this.props.form; //表单验证
-
+    const { children, addLoading, title } = this.props;
+    const { getFieldDecorator } = this.props.form;
+    const { username, nickname, type } = this.props.record;
     return (
-      // 空标签  <> </> 代替根节点
       <>
         {withClick(children, this.handleOpenClick)}
         <Modal
-          title="添加用户"
+          title={title}
           visible={visible}
           centered={true}
           maskClosable={false}
@@ -68,6 +66,7 @@ class UserModal extends Component {
                     message: '用户名不能为空',
                   },
                 ],
+                initialValue: username,
               })(<Input placeholder="请输入用户名" />)}
             </FormItem>
             <FormItem label="姓名" {...formItemLayout}>
@@ -78,6 +77,7 @@ class UserModal extends Component {
                     message: '昵称不能为空',
                   },
                 ],
+                initialValue: nickname,
               })(<Input placeholder="请输入姓名" />)}
             </FormItem>
             <FormItem label="用户类型" {...formItemLayout}>
@@ -88,7 +88,7 @@ class UserModal extends Component {
                     message: '用户类型不能为空,请选择',
                   },
                 ],
-                initialValue: '1',
+                initialValue: type || '1',
               })(
                 <RadioGroup>
                   <Radio value={'0'}>管理员</Radio>
@@ -102,4 +102,10 @@ class UserModal extends Component {
     );
   }
 }
+
+UserModal.defaultProps = {
+  title: '添加用户',
+  record: { type: '1', username: '', nickname: '' },
+};
+
 export default Form.create()(UserModal);

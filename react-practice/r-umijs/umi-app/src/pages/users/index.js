@@ -2,13 +2,13 @@
  * title: 用户
  */
 import React from 'react';
-import { Button, Message } from 'antd';
+import { Button, Message, Popconfirm } from 'antd';
 import { Content, Tool } from '@/components/Layout';
 import Table from '@/components/Table';
 import { connect } from 'dva';
 import UserModal from './components/UserModal';
 
-const index = ({ list, dispatch, loading, addLoading }) => {
+const index = ({ list, dispatch, loading, addLoading, total, page, pageSize }) => {
   const columns = [
     {
       title: '用户名',
@@ -34,8 +34,12 @@ const index = ({ list, dispatch, loading, addLoading }) => {
       key: 'operation',
       render: (text, record) => (
         <div>
-          <a>编辑</a>
-          <a>删除</a>
+          <UserModal onOk={value => handleEdit(record.id, value)} title="编辑用户" record={record}>
+            <a>编辑</a>
+          </UserModal>
+          <Popconfirm title="确定删除该用户吗?" onConfirm={() => handleDelete(record.id)}>
+            <a>删除</a>
+          </Popconfirm>
         </div>
       ),
     },
@@ -59,10 +63,52 @@ const index = ({ list, dispatch, loading, addLoading }) => {
       }
     });
   };
+
+  // 分页
+  const handlePageChange = pageNum => {
+    // console.log(pageNum);
+    if (page !== pageNum) {
+      // 发起请求
+      dispatch({ type: 'users/fetch', payload: { page: pageNum } });
+    }
+  };
+
+  // 编辑
+  const handleEdit = (id, value) => {
+    // console.log(value, id);
+    return dispatch({
+      type: 'users/edit',
+      payload: { id, value },
+    }).then(res => {
+      if (res && res.state == 'success') {
+        Message.success(res.msg || '编辑用户成功');
+        reload();
+        return res;
+      } else {
+        Message.error('编辑用户失败');
+      }
+    });
+  };
+
+  // 删除
+  const handleDelete = id => {
+    dispatch({
+      type: 'users/remove',
+      payload: id,
+    }).then(res => {
+      if (res && res.state == 'success') {
+        Message.success(res.msg || '删除用户成功');
+        reload();
+      } else {
+        Message.error('删除用户失败');
+      }
+    });
+  };
+
   return (
     <Content>
       <Tool>
-        <UserModal onAdd={handleAdd} addLoading={addLoading}>
+        <UserModal onOk={handleAdd} addLoading={addLoading}>
           <Button type="primary">添加用户</Button>
         </UserModal>
       </Tool>
@@ -71,6 +117,12 @@ const index = ({ list, dispatch, loading, addLoading }) => {
         dataSource={list}
         rowKey={(list, index) => list.id}
         loading={loading}
+        pagination={{
+          total: total,
+          pageSize: pageSize,
+          current: page,
+          onChange: handlePageChange,
+        }}
       />
     </Content>
   );
