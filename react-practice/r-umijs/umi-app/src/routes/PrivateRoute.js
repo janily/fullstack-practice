@@ -10,5 +10,9 @@ export default ({ children, match, route }) => {
     router.push('/');
   }
 
+  if (route.authority && !route.authority.includes(localStorage.authority)) {
+    router.push('/');
+  }
+
   return children;
 };
