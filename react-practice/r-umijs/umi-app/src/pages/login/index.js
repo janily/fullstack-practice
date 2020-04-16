@@ -2,20 +2,36 @@
  * title: 登录
  */
 import React from 'react';
-import { login } from './services/login';
+// import { login } from './services/login';
 import router from 'umi/router';
 import { Layout, Icon, Form, Input, Button } from 'antd';
 import styles from './index.scss';
+import jwt_decode from 'jwt-decode';
+import { connect } from 'dva';
 
 const { Content, Footer } = Layout;
 const iconStyle = { color: 'rgba(0,0,0,.25)' };
 
-const index = ({ form }) => {
+const index = ({ form, dispatch, loading }) => {
   const handleSubmit = () => {
     // form校验
     form.validateFields((err, values) => {
       if (!err) {
-        login(values).then(data => router.push('/'));
+        // login(values).then(data => router.push('/'));
+        dispatch({
+          type: 'login/login',
+          payload: values,
+        }).then(res => {
+          if (res && res.state === 'suc') {
+            const token = jwt_decode(res.token);
+            const { id, nickname, username, type } = token;
+            localStorage.setItem('username', username);
+            localStorage.setItem('nickname', nickname);
+            localStorage.setItem('userId', id);
+            localStorage.setItem('authority', type === '0' ? 'admin' : 'user');
+            router.push('/');
+          }
+        });
       }
     });
   };
@@ -60,7 +76,12 @@ const index = ({ form }) => {
               )}
             </Form.Item>
             <Form.Item>
-              <Button onClick={handleSubmit} type="primary" style={{ width: '100%' }}>
+              <Button
+                loading={loading}
+                onClick={handleSubmit}
+                type="primary"
+                style={{ width: '100%' }}
+              >
                 登录
               </Button>
             </Form.Item>
@@ -68,10 +89,12 @@ const index = ({ form }) => {
         </div>
       </Content>
       <Footer className={styles.footer}>
-        Copyright <Icon type="copyright" /> 2020 米修在线
+        Copyright <Icon type="copyright" /> 2020 janily
       </Footer>
     </Layout>
   );
 };
 
-export default Form.create()(index);
+export default connect(({ loading }) => ({
+  loading: loading.effects['login/login'],
+}))(Form.create()(index));
