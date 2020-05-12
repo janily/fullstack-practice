@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+body {
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: anitialiased;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+a {
+  color: #5334f5;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.Hero {
+  height: 920px;
+  background: url(../images/wallpaper3.jpg);
+  background-size: cover;
+  background-position: center;
+}
