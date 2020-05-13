@@ -16,10 +16,17 @@ a {
 }
 
 .Hero {
+  position: relative;
   height: 920px;
   background: url(../images/wallpaper3.jpg);
   background-size: cover;
   background-position: center;
+}
+
+.Hero svg {
+  position: absolute;
+  bottom:0;
+  left: 0;
 }
 
 .HeroGroup {
@@ -34,12 +41,20 @@ a {
   color: white;
   font-size: 60px;
   line-height: 1.2;
+  opacity: 0;
+  animation: HeroAnimation;
+  animation-duration: 3s;
+  animation-delay: 0.1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .Hero p {
   color: rgba(255, 255, 255, 0.8);
   font-size: 30px;
   line-height: 1.5;
+  animation: HeroAnimation 3s 0.2s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+  opacity: 0;
 }
 
 .Hero a {
@@ -51,6 +66,37 @@ a {
   padding: 9px 20px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 20px;
+  transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.Hero a:hover {
+  background: white;
+  color: black;
+}
+
+.Hero .Logos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 40px;
+  margin: 0 0 100px;
+  justify-items: center;
+}
+
+@media (max-width: 640px) {
+  .Hero .Logos {
+	grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@keyframes HeroAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
 
 @media (max-width: 640px) {
