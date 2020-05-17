@@ -12,6 +12,7 @@ import { Helmet } from 'react-helmet'
 
 import Header from "./header"
 import "./layout.css"
+import Footer from './Footer'
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -21,6 +22,15 @@ const Layout = ({ children }) => {
           title
           description
           keywords
+        }
+      }
+      allContentfulLink (sort: { fields: [createdAt], order: ASC }) {
+        edges {
+          node {
+            title
+            url
+            createdAt
+          }
         }
       }
     }
@@ -37,11 +47,9 @@ const Layout = ({ children }) => {
       />
       <Header />
       <main>{children}</main>
-      <footer>
-        © {new Date().getFullYear()}, Built with
-          {` `}
-        <a href="https://www.gatsbyjs.org">Gatsby</a>
-      </footer>
+      <Footer data={data}>
+        了解更多的 SVG 知识 <a href="janily.github.io">了解更多的 SVG 知识</a> © 2020
+      </Footer>
     </>
   )
 }
