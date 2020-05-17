@@ -4,9 +4,9 @@
 
 # 练习项目
 
-- [X] Web application using api
-- [X] Bronchure site
-- [X] Todo list
-- [ ] E-commerce site
-- [ ] Personal Portfolio
-- [X] Simple game
+- [x] Web application using api
+- [x] Bronchure site
+- [x] Todo list
+- [x] E-commerce site
+- [x] Personal Portfolio
+- [x] Simple game
