@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "电影选座",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "conventional-changelog": "^3.1.21",
+    "conventional-changelog-cli": "^2.0.34"
+  },
   "devDependencies": {
     "commitizen": "^4.1.2",
     "cz-conventional-changelog": "^3.2.0"
