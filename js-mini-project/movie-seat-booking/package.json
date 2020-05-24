@@ -1,0 +1,21 @@
+{
+  "name": "movie-seat-booking",
+  "version": "1.0.0",
+  "description": "电影选座",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
