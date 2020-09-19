@@ -15,9 +15,16 @@ class Login extends React.Component {
 
   // 组件状态来获取值  state
 
+  // state = {
+  //   isLike: false,
+  //   count: 0
+  // }
+  //非受控组件，状态控制不了
+  //受控组件，状态控制， state 数据源，控制 state 值的改变
+
   state = {
-    isLike: false,
-    count: 0
+    email: '',
+    password: ''
   }
 
 
@@ -60,14 +67,14 @@ class Login extends React.Component {
 
     //获取数据
 
-    console.log(this.emailRef.current.value);
+    // console.log(this.emailRef.current.value);
 
-    const formData = {
-      email: this.emailRef.current.value,
-      password: this.passwordRef.current.value
-    }
+    // const formData = {
+    //   email: this.emailRef.current.value,
+    //   password: this.passwordRef.current.value
+    // }
 
-    console.log(formData)
+    console.log(this.state);
 
     //处理逻辑
 
@@ -89,6 +96,16 @@ class Login extends React.Component {
     console.log(this.state.count)
   }
 
+  handChange = e => {
+    console.log(e.target.value)
+    this.setState({
+      // [e.target.name]: e.target.value.toUpperCase()
+      [e.target.name]: e.target.value
+    })
+  }
+
+
+
   render() {
     return (
       <>
@@ -96,7 +113,7 @@ class Login extends React.Component {
           <form className="box login-box" onSubmit={this.handleSubmit}>
             <div className="field">
               <p className="control has-icons-left has-icons-right">
-                <input className="input" type="email" placeholder="Email" ref={this.emailRef} />
+                <input className="input" type="email" placeholder="Email" value={this.state.email} onChange={this.handChange} name="email" />
                 <span className="icon is-small is-left">
                   <i className="fas fa-envelope"></i>
                 </span>
@@ -107,7 +124,7 @@ class Login extends React.Component {
             </div>
             <div className="field">
               <p className="control has-icons-left">
-                <input className="input" type="password" placeholder="Password" ref={this.passwordRef} />
+                <input className="input" type="password" placeholder="Password" value={this.state.password} onChange={this.handChange} name="password" />
                 <span className="icon is-small is-left">
                   <i className="fas fa-lock"></i>
                 </span>
