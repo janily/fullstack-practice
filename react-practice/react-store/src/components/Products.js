@@ -1,70 +1,114 @@
 import React from 'react';
 import ToolBox from './ToolBox'
 import Product from './Product'
+import axios from 'axios'
 
 class Products extends React.Component {
 
 
-  products = [
-    {
-      id: 1,
-      name: 'air jordan',
-      image: 'images/1.jpg',
-      tags: '45 colors',
-      price: '5600',
-      status: 'available'
-    },
-    {
-      id: 2,
-      name: 'air jordan',
-      image: 'images/1.jpg',
-      tags: '45 colors',
-      price: '5600',
-      status: 'available'
-    },
-    {
-      id: 3,
-      name: 'air jordan',
-      image: 'images/1.jpg',
-      tags: '45 colors',
-      price: '5600',
-      status: 'available'
-    },
-    {
-      id: 4,
-      name: 'air jordan',
-      image: 'images/1.jpg',
-      tags: '45 colors',
-      price: '5600',
-      status: 'available'
-    },
-    {
-      id: 5,
-      name: 'air jordan',
-      image: 'images/1.jpg',
-      tags: '45 colors',
-      price: '5600',
-      status: 'unavailable'
-    },
-    {
-      id: 6,
-      name: 'air jordan',
-      image: 'images/1.jpg',
-      tags: '45 colors',
-      price: '5600',
-      status: 'available'
-    }
+  // products = [
+  //   {
+  //     id: 1,
+  //     name: 'air jordan',
+  //     image: 'images/1.jpg',
+  //     tags: '45 colors',
+  //     price: '5600',
+  //     status: 'available'
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'air jordan',
+  //     image: 'images/1.jpg',
+  //     tags: '45 colors',
+  //     price: '5600',
+  //     status: 'available'
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'air jordan',
+  //     image: 'images/1.jpg',
+  //     tags: '45 colors',
+  //     price: '5600',
+  //     status: 'available'
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'air jordan',
+  //     image: 'images/1.jpg',
+  //     tags: '45 colors',
+  //     price: '5600',
+  //     status: 'available'
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'air jordan',
+  //     image: 'images/1.jpg',
+  //     tags: '45 colors',
+  //     price: '5600',
+  //     status: 'unavailable'
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'air jordan',
+  //     image: 'images/1.jpg',
+  //     tags: '45 colors',
+  //     price: '5600',
+  //     status: 'available'
+  //   }
 
-  ]
+  // ]
+
+  state = {
+    products: [],
+    sourceProducts: []
+  }
+
+  componentDidMount() {
+    console.log('---------开始')
+    // fetch('http://localhost:3003/products')
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     this.setState({
+    //       products: data
+    //     })
+    //   })
+
+    axios.get('http://localhost:3003/products').then(response => {
+      this.setState({
+        products: response.data,
+        sourceProducts: response.data
+      })
+    })
+  }
+
+  search = text => {
+    console.log('object')
+    // 1、获取新数组
+    let _products = [...this.state.sourceProducts]
+
+    // 过滤
+
+    _products = _products.filter(p => {
+      const matchProducts = p.name.match(new RegExp(text, 'gi'))
+      return matchProducts !== null
+    })
+
+
+    // 改变数组， UI 重新渲染
+
+    this.setState({
+      products: _products
+    })
+  }
   render() {
     return (
       <div>
 
-        <ToolBox />
+        <ToolBox search={this.search} />
         <div className="products">
           <div className="columns is-multiline is-desktop">
             {
-              this.products.map(p => {
+              this.state.products.map(p => {
                 return (
                   <div className="column is-3" key={p.id}>
                     <Product product={p} />
