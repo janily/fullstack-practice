@@ -1,7 +1,22 @@
 import React from 'react';
 import ReactDom from 'react-dom'
 import Router from './Router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './css/app.scss'
 
-ReactDom.render(<Router />, document.getElementById('root'))
+ReactDom.render(<div>
+  <ToastContainer
+    position="top-right"
+    autoClose={5000}
+    hideProgressBar
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnVisibilityChange
+    draggable
+    pauseOnHover
+  />
+  <Router />
+</div>, document.getElementById('root'))
 

@@ -1,6 +1,23 @@
 import React from 'react'
+import Panel from './Panel'
+import EditStore from './EditStore'
 
 class Product extends React.Component {
+  toEdit = () => {
+    Panel.open({
+      component: EditStore,
+      props: {
+        product: this.props.product,
+        deleteProduct: this.props.delete
+      },
+      callback: data => {
+        if (data) {
+          this.props.update(data)
+        }
+
+      }
+    })
+  }
   formatPrice = cents => {
     return (cents / 100).toLocaleString('zh', {
       style: 'currency',
@@ -16,6 +33,11 @@ class Product extends React.Component {
     return (
       <div className={_pClass[status]}>
         <div className="p-content">
+          <div className="p-head has-text-right" onClick={this.toEdit}>
+            <span className="icon edit-btn">
+              <i className="fas fa-sliders-h"></i>
+            </span>
+          </div>
           <div className="img-wrapper">
             <div className="out-stock-text">Out of Stock</div>
             <figure className="image is-4by3">

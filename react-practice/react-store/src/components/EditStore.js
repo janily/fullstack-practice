@@ -2,13 +2,27 @@ import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-class AddStore extends React.Component {
+class EditStore extends React.Component {
   state = {
+    id: '',
     name: '',
     price: 0,
     tags: '',
     image: '',
     status: 'available'
+  }
+
+  componentDidMount() {
+    const { id, name, image, tags, price, status } = this.props.product;
+
+    this.setState({
+      id,
+      name,
+      image,
+      tags,
+      price,
+      status
+    })
   }
 
   handleChange = e => {
@@ -22,11 +36,19 @@ class AddStore extends React.Component {
   submit = e => {
     e.preventDefault();
     const product = { ...this.state }
-    axios.post('http://localhost:3003/products', product).then(res => {
+    axios.put(`http://localhost:3003/products/${this.state.id}`, product).then(res => {
       this.props.close(res.data);
-      toast.success('添加成功')
+      toast.success('修改成功')
     })
   };
+
+  onDelete = () => {
+    axios.delete(`http://localhost:3003/products/${this.state.id}`).then(res => {
+      this.props.deleteProduct(this.state.id)
+      this.props.close();
+      toast.success('删除成功')
+    })
+  }
 
   render() {
     return (
@@ -102,6 +124,9 @@ class AddStore extends React.Component {
                 <button className="button is-link">Submit</button>
               </div>
               <div className="control">
+                <button className="button is-danger" onClick={this.onDelete}>delete</button>
+              </div>
+              <div className="control">
                 <button
                   className="button"
                   type="button"
@@ -123,4 +148,4 @@ class AddStore extends React.Component {
   }
 }
 
-export default AddStore
+export default EditStore;
