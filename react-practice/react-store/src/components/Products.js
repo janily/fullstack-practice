@@ -3,6 +3,8 @@ import ToolBox from './ToolBox'
 import Product from './Product'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import axios from 'axios'
+import Panel from './Panel'
+import AddStore from './AddStore'
 
 class Products extends React.Component {
 
@@ -101,6 +103,15 @@ class Products extends React.Component {
       products: _products
     })
   }
+
+  toAdd = () => {
+    Panel.open({
+      component: AddStore,
+      callback: data => {
+        console.log(data)
+      }
+    })
+  }
   render() {
     return (
       <div>
@@ -121,29 +132,8 @@ class Products extends React.Component {
                 })
               }
             </TransitionGroup>
-
-            {/* <div className="column is-3">
-              <Product />
-            </div>
-            <div className="column is-3">
-              <Product />
-            </div>
-            <div className="column is-3">
-              <Product />
-            </div>
-            <div className="column is-3">
-              <Product />
-            </div>
-            <div className="column is-3">
-              <Product />
-            </div>
-            <div className="column is-3">
-              <Product />
-            </div>
-            <div className="column is-3">
-              <Product />
-            </div> */}
           </div>
+          <button className="button is-primary add-btn" onClick={this.toAdd}>添加</button>
         </div>
       </div>
     )
