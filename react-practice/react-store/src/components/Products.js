@@ -10,7 +10,8 @@ class Products extends React.Component {
 
   state = {
     products: [],
-    sourceProducts: []
+    sourceProducts: [],
+    cartNum: 0
   }
 
   componentDidMount() {
@@ -29,6 +30,8 @@ class Products extends React.Component {
         sourceProducts: response.data
       })
     })
+
+    this.updatedCartNum();
   }
 
   search = text => {
@@ -98,11 +101,27 @@ class Products extends React.Component {
     })
   }
 
+  updatedCartNum = async () => {
+    const cartNum = await this.initCartNum()
+    this.setState({
+      cartNum: cartNum
+    })
+  }
+
+  initCartNum = async () => {
+    const res = await axios.get(`http://localhost:3003/carts`);
+    const carts = res.data || []
+    const cartNum = carts
+      .map(cart => cart.mount)
+      .reduce((a, value) => a + value, 0)
+    return cartNum;
+  }
+
   render() {
     return (
       <div>
 
-        <ToolBox search={this.search} />
+        <ToolBox search={this.search} cartNum={this.state.cartNum} />
         <div className="products">
           <div className="columns is-multiline is-desktop">
             <TransitionGroup component={null}>
@@ -111,7 +130,7 @@ class Products extends React.Component {
                   return (
                     <CSSTransition classNames="product-fade" timeout={300} key={p.id}>
                       <div className="column is-3" key={p.id}>
-                        <Product product={p} update={this.update} delete={this.delete} />
+                        <Product product={p} update={this.update} delete={this.delete} updatedCartNum={this.updatedCartNum} />
                       </div>
                     </CSSTransition>
                   )

@@ -1,6 +1,8 @@
 import React from 'react'
 import Panel from './Panel'
 import EditStore from './EditStore'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 class Product extends React.Component {
   toEdit = () => {
@@ -24,6 +26,46 @@ class Product extends React.Component {
       currency: 'CNY'
     })
   }
+
+  addCart = async () => {
+    const { id, name, image, price } = this.props.product;
+
+    const res = await axios.get(`http://localhost:3003/carts?productId=${id}`);
+
+    const carts = res.data
+
+    console.log(carts)
+
+    if (carts && carts.length > 0) {
+      const cart = carts[0]
+      cart.mount += 1
+      await axios.put(`http://localhost:3003/carts/${cart.id}`, cart)
+    } else {
+      const cart = {
+        productId: id,
+        name,
+        image,
+        price,
+        mount: 1
+      }
+
+      await axios.post('http://localhost:3003/carts', cart).then(res => {
+        console.log(res.data);
+      })
+    }
+
+    toast.success('添加购物成功')
+    this.props.updatedCartNum();
+
+  };
+
+
+
+
+
+
+
+
   render() {
     const { name, image, tags, price, status } = this.props.product
     const _pClass = {
@@ -50,7 +92,7 @@ class Product extends React.Component {
         </div>
         <div className="p-footer">
           <p className="price">{this.formatPrice(price)}</p>
-          <button className="add-cart" disabled={status === 'unavailable'}>
+          <button className="add-cart" disabled={status === 'unavailable'} onClick={this.addCart}>
             <i className="fas fa-shopping-cart"></i>
             <i className="fas fa-exclamation"></i>
           </button>
