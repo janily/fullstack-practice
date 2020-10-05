@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import HookCounterEffect from './components/HookCounterEffect'
+import HookFetch from './components/HookFetch'
 
 function App() {
   return (
     <div className="App">
-      <HookCounterEffect />
+      <HookFetch />
     </div>
   );
 }
