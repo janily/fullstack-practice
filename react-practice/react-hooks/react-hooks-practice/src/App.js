@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import HookCounterFour from './components/HookCounterFour'
+import HookCounterEffect from './components/HookCounterEffect'
 
 function App() {
   return (
     <div className="App">
-      <HookCounterFour />
+      <HookCounterEffect />
     </div>
   );
 }
