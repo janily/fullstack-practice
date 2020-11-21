@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/playlist/playlist",
+    "pages/blog/blog",
+    "pages/profile/profile",
+    "pages/sparklist/sparklist"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "ux spark",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#474747",
+    "selectedColor": "#1296db",
+    "list":[
+      {
+        "pagePath": "pages/sparklist/sparklist",
+        "text": "灵感",
+        "iconPath": "images/sparkles.png",
+        "selectedIconPath": "images/sparkles_active.png"
+      },
+      {
+        "pagePath": "pages/playlist/playlist",
+        "text": "流行",
+        "iconPath": "images/hot.png",
+        "selectedIconPath": "images/hot_active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/user_active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
