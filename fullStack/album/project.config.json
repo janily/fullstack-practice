@@ -34,12 +34,11 @@
     "packNpmRelationList": [],
     "minifyWXSS": true
   },
-  "appid": "wx4ec6ef1d5fcd86d0",
-  "projectname": "ux-spark",
+  "appid": "wx931bd5a5c3147a72",
+  "projectname": "album",
   "libVersion": "2.8.1",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
     "search": {
       "list": []
