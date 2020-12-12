@@ -4,7 +4,7 @@ import superagent from "superagent";
 import SvgAnalyze from "./svg";
 import fs from "fs";
 
-interface Analyze {
+export interface Analyze {
   analyze: (html: string, filePaht: string) => string;
 }
 

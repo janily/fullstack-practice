@@ -1,5 +1,6 @@
 import cheerio from "cheerio";
 import fs from "fs";
+import { Analyze } from "./cral";
 
 interface Articles {
   title: string;
@@ -15,7 +16,7 @@ interface Content {
   [propName: number]: Articles[];
 }
 
-export default class SvgAnalyze {
+export default class SvgAnalyze implements Analyze {
   private getJsonInfo(html: string) {
     const $ = cheerio.load(html);
 
