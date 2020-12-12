@@ -19,6 +19,7 @@ interface Content {
 }
 class Cral {
   private url = `http://www.svgtrick.com`;
+  private filePath = path.resolve(__dirname, "../data/article.json");
 
   // private rawHtml = "";
 
@@ -61,22 +62,24 @@ class Cral {
   }
 
   generateJson(resultInfo: articleResult) {
-    const filePath = path.resolve(__dirname, "../data/article.json");
     let fileContent: Content = {};
-    if (fs.existsSync(filePath)) {
-      fileContent = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    if (fs.existsSync(this.filePath)) {
+      fileContent = JSON.parse(fs.readFileSync(this.filePath, "utf-8"));
     }
 
     fileContent[resultInfo.time] = resultInfo.data;
     return fileContent;
   }
 
+  writeFile(content: string) {
+    fs.writeFileSync(this.filePath, content);
+  }
+
   async initSpiderProcess() {
-    const filePath = path.resolve(__dirname, "../data/article.json");
     const html = await this.getRawHtml();
     const resultInfo = this.getJsonInfo(html);
     const filetData = this.generateJson(resultInfo);
-    fs.writeFileSync(filePath, JSON.stringify(filetData));
+    this.writeFile(JSON.stringify(filetData));
   }
   constructor() {
     this.initSpiderProcess();
