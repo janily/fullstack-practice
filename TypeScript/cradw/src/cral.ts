@@ -68,13 +68,15 @@ class Cral {
     }
 
     fileContent[resultInfo.time] = resultInfo.data;
-    fs.writeFileSync(filePath, JSON.stringify(fileContent));
+    return fileContent;
   }
 
   async initSpiderProcess() {
+    const filePath = path.resolve(__dirname, "../data/article.json");
     const html = await this.getRawHtml();
     const resultInfo = this.getJsonInfo(html);
-    this.generateJson(resultInfo);
+    const filetData = this.generateJson(resultInfo);
+    fs.writeFileSync(filePath, JSON.stringify(filetData));
   }
   constructor() {
     this.initSpiderProcess();
