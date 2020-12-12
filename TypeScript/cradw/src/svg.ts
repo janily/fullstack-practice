@@ -17,6 +17,15 @@ interface Content {
 }
 
 export default class SvgAnalyze implements Analyze {
+  private static instance: SvgAnalyze;
+
+  static getInstance() {
+    if (!SvgAnalyze.instance) {
+      SvgAnalyze.instance = new SvgAnalyze();
+    }
+
+    return SvgAnalyze.instance;
+  }
   private getJsonInfo(html: string) {
     const $ = cheerio.load(html);
 
@@ -50,7 +59,7 @@ export default class SvgAnalyze implements Analyze {
     // console.log(result);
   }
 
-  generateJson(resultInfo: articleResult, filePath: string) {
+  private generateJson(resultInfo: articleResult, filePath: string) {
     let fileContent: Content = {};
     if (fs.existsSync(filePath)) {
       fileContent = JSON.parse(fs.readFileSync(filePath, "utf-8"));
@@ -65,4 +74,6 @@ export default class SvgAnalyze implements Analyze {
     const filetData = this.generateJson(resultInfo, filePath);
     return JSON.stringify(filetData);
   }
+
+  private constructor() {}
 }

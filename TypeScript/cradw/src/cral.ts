@@ -13,17 +13,17 @@ class Cral {
 
   // private rawHtml = "";
 
-  async getRawHtml() {
+  private async getRawHtml() {
     const result = await superagent.get(this.url);
     // this.rawHtml = result.text;
     return result.text;
   }
 
-  writeFile(content: string) {
+  private writeFile(content: string) {
     fs.writeFileSync(this.filePath, content);
   }
 
-  async initSpiderProcess() {
+  private async initSpiderProcess() {
     const html = await this.getRawHtml();
     const fileData = this.SvgAnalyze.analyze(html, this.filePath);
     this.writeFile(fileData);
@@ -35,6 +35,5 @@ class Cral {
 
 const url = `http://www.svgtrick.com`;
 
-const analyze = new SvgAnalyze();
-
+const analyze = SvgAnalyze.getInstance();
 new Cral(url, analyze);
