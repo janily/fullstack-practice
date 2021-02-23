@@ -1,5 +1,5 @@
 .env
 node_modules
 public/uploads/bookCovers
-ai-code/**/.cache
-ai-code/**/dist
+**/dist
+**/.cache
