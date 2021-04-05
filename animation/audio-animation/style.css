@@ -24,6 +24,7 @@
 #audio1 {
   width: 50%;
   margin: 50px auto;
+  opacity: 0;
 }
 
 #fileupload {
@@ -31,4 +32,18 @@
   top: 150px;
   color: #fff;
   z-index: 100;
+  opacity: 0;
+}
+#btn-wrap  {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+}
+#btn-wrap  button {
+  background-color: red;
+  display: block;
+  width: 100px;
+  height: 50px;
 }
