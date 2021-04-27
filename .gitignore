@@ -3,3 +3,4 @@ node_modules
 public/uploads/bookCovers
 **/dist
 **/.cache
+VGG16_cats_and_dogs.h5
