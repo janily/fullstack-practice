@@ -7,13 +7,18 @@ import { bookData } from './books'
 import Book from './Book'
 
 function BookList() {
-  return <section className='bookList'>
-    {bookData.map((book) => {
+  const [book, setBook ] = React.useState(bookData);
+  const { id } = book;
+  return <><section key={id} className='bookList'>
+    {book.map((book) => {
       return (
-        <Book book={book}/>
+        <Book book={book} key={id}>
+          <button>removeItem</button>
+        </Book>
       )
     })}
-  </section>;
+  </section><button className='' onClick={() => setBook([])}>remove</button></>
+  ;
 }
 
 
